@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0 auto;
+    }
+    #banner{
+        width: 600px;
+        height: 470px;
+        position: relative;
+        overflow: hidden;
+        background-color: rgba(31, 31, 32, 0.5);
+    }
+    #top{
+        position: relative;
+    }
+    #top a img{
+        width: 600px;
+        height: 470px;
+        position: absolute;
+    }
+    #top a{
+        opacity: 0;
+    }
+    #top a.xian{
+        opacity: 1;
+    }
+    .left{
+        position: absolute;
+        top: 210px;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(31, 31, 32, 0.5);
+        text-align: center;
+        font-size: 25px;
+        color: cornsilk;
+        line-height: 50px;
+    }
+    .right{
+        position: absolute;
+        left: 550px;
+        top: 210px;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(31, 31, 32, 0.5);
+        text-align: center;
+        font-size: 25px;
+        color: cornsilk;
+        line-height: 50px;
+    }
+
+
+
+
+    #nav{
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+        list-style: none;
+    }
+    #nav li{
+        float: left;
+        width: 10px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.555);
+        margin: 0 5px;
+        border-radius: 50px;
+    }
+    #nav li.active{
+        background-color: rgb(255, 255, 255);
+    }
+
+
+
+</style>
+<body>
+    <!-- 外部框架 -->
+    <div id="banner">
+        <!-- 图片层 -->
+        <div id="top">
+            <a href="#"><img src="image/1.jpg" alt="1"></a>
+            <a href="#"><img src="image/2.jpg" alt="2"></a>
+            <a href="#"><img src="image/3.jpg" alt="3"></a>
+            <a href="#"><img src="image/4.jpg" alt="4"></a>
+            <a href="#"><img src="image/5.jpg" alt="5"></a>
+            <a href="#"><img src="image/6.jpg" alt="6"></a>
+            <a href="#"><img src="image/7.jpg" alt="7"></a>
+            <a href="#"><img src="image/8.jpg" alt="8"></a>
+        </div>
+        <!-- 圆点层 -->
+        <div id="bottom">
+            <ul id="nav">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <!-- 左右箭头 -->
+        <div class="left"><</div>
+        <div class="right">></div>
+    </div>
+</body>
+<script src="js/jquery.js"></script>
+<script>
+    var index = 0;
+    var length = 8;
+
+    $('#top a').eq(index).addClass('xian');
+    var timer = setInterval(autoMove,3000);
+    function autoMove(){
+        index++;
+        if(index >= length){
+            index = 0;
+        }
+        changeTo(index);
+        dian(index);
+    }
+
+    function changeTo(index){
+        $('#top a').eq(index).addClass('xian').siblings().removeClass('xian');
+        $('#top a').eq(index).fadeIn(1000);
+        $('#top a').eq(index).siblings().fadeOut(1000);
+    }
+
+    function dian(index){
+        $('#nav li').eq(index).addClass('active').siblings().removeClass('active');
+    }
+
+    $('.left').click(function(){
+        $('#top a').fadeIn();
+    },function(){
+        $('#top a').fadeOut();
+    })
+
+    $('.left').click(function(){
+        index--;
+        if(index < 0){
+            index = length-1;
+        }
+        changeTo(index);
+        dian(index);
+    })
+    $('.right').click(function(){
+        index++;
+        if (index >= length){
+            index = 0;
+        }
+        changeTo(index);
+        dian(index);
+    })
+    $('#banner').mousemove(function(){
+        clearInterval(timer);
+    }).mouseout(function(){
+        timer = setInterval(autoMove,3000);
+    });
+</script>
+</html>
